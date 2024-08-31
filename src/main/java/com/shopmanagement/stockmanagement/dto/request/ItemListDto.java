@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemListDto {
-    Long itemId;
-    Integer page;
-    Integer size;
+    private Long itemId;
+    private Integer page;
+    private Integer size;
 }

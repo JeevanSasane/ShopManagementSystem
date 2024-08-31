@@ -34,7 +34,7 @@ public class MasterServiceImpl implements MasterService {
     private ItemCategoryRepo itemCategoryRepo;
 
     @Autowired
-    private StockCompanyRepo stockCompanyRepo;
+    private ItemCompanyRepo stockCompanyRepo;
 
     @Autowired
     private UserAuth userAuth;
@@ -114,9 +114,9 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public ResponseEntity<?> createItemCompany(StockCompany stockCompany, String token) {
+    public ResponseEntity<?> createItemCompany(ItemCompany stockCompany, String token) {
         var response = new Response<>();
-        StockCompany newStockCompany = new StockCompany();
+        ItemCompany newStockCompany = new ItemCompany();
         newStockCompany.setCompanyName(stockCompany.getCompanyName());
         newStockCompany.setCreateDateTime(LocalDateTime.now());
         newStockCompany.setCreateBy(userRepo.findById(Integer.parseInt(userAuth.getUserId(token).toString())).get());

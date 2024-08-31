@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
     @Column(nullable = false)
@@ -22,7 +24,7 @@ public class BaseEntity {
     private Boolean isDelete = false;
 
     @CreatedBy
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     private Users createBy;
 
@@ -31,7 +33,7 @@ public class BaseEntity {
     private LocalDateTime createDateTime;
 
     @LastModifiedBy
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
     private Users updatedBy;
 

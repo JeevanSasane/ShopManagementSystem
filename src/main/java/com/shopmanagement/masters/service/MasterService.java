@@ -26,7 +26,7 @@ public interface MasterService {
     ResponseEntity<?> getItemCategory();
 
 
-    ResponseEntity<?> createItemCompany(StockCompany stockCompany,String token);
+    ResponseEntity<?> createItemCompany(ItemCompany stockCompany,String token);
 
     ResponseEntity<?> getItemCompany(Long itemId);
 

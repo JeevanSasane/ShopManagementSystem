@@ -13,7 +13,7 @@ public interface ItemMasterRepo extends JpaRepository<ItemMaster,Long> {
 
     ItemMaster findByItemName(String itemName);
 
-    @Query(value = "select * from get_new_item_code()",nativeQuery = true)
+    @Query(value = "select * from mt_generate_item_code()",nativeQuery = true)
     String getItemCode();
 
     @Query(value = "select * from RetrieveItemStockList(?1,?2,?3)",nativeQuery = true)
@@ -24,7 +24,6 @@ public interface ItemMasterRepo extends JpaRepository<ItemMaster,Long> {
 
     @Query(value = "SELECT * FROM RetrieveItemStockSearch(?1)", nativeQuery = true)
     List<Map<String, Object>> getItemStockSearch( String searchString);
-
 
 
 }

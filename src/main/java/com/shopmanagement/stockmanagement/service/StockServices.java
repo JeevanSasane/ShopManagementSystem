@@ -15,7 +15,7 @@ public interface StockServices {
 
     ResponseEntity<?> getAllItemStockList(ItemListDto itemListDto);
 
-    ResponseEntity<?> getItemStock(String searchString);
+    ResponseEntity<?> getItemStockSearch(String searchString);
 
     ResponseEntity<?> getBatchesFromItemId(Long itemId);
 

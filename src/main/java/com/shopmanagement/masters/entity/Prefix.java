@@ -15,9 +15,10 @@ public class Prefix extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true,nullable = false)
     private String prefix;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gender_id",nullable = false)
     private Gender gender;
 }

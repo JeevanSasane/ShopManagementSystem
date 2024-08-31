@@ -1,8 +1,5 @@
 package com.shopmanagement.stockmanagement.dto.request;
 
-import com.shopmanagement.masters.entity.ItemCategory;
-import com.shopmanagement.masters.entity.StockCompany;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,17 +31,10 @@ public class AddStockRequestDto {
 
     private Double discount;
 
-    private Long companyId;
-
     private Integer conversion;
-
-//    private ItemCategory itemCategory;
 
     private String itemCategoryName;
 
     private String stockCompanyName;
-
-//    private StockCompany stockCompany;
-
 
 }

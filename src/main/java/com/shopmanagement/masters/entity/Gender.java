@@ -15,5 +15,6 @@ public class Gender  extends BaseEntity  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true,nullable = false)
     private String gender;
 }

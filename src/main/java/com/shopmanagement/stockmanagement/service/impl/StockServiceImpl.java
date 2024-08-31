@@ -1,10 +1,9 @@
 package com.shopmanagement.stockmanagement.service.impl;
 
-import com.shopmanagement.masters.entity.Country;
 import com.shopmanagement.masters.entity.ItemCategory;
-import com.shopmanagement.masters.entity.StockCompany;
+import com.shopmanagement.masters.entity.ItemCompany;
 import com.shopmanagement.masters.repository.ItemCategoryRepo;
-import com.shopmanagement.masters.repository.StockCompanyRepo;
+import com.shopmanagement.masters.repository.ItemCompanyRepo;
 import com.shopmanagement.response.Response;
 import com.shopmanagement.security.UserAuth;
 import com.shopmanagement.stockmanagement.dto.request.AddStockRequestDto;
@@ -16,9 +15,7 @@ import com.shopmanagement.stockmanagement.repository.ItemStockRepo;
 import com.shopmanagement.stockmanagement.service.StockServices;
 import com.shopmanagement.user.entity.Users;
 import com.shopmanagement.user.repository.UserRepo;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import jakarta.transaction.Transactional;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +38,7 @@ public class StockServiceImpl implements StockServices {
     private ItemCategoryRepo itemCategoryRepo;
 
     @Autowired
-    private StockCompanyRepo stockCompanyRepo;
+    private ItemCompanyRepo stockCompanyRepo;
 
     @Autowired
     private UserAuth userAuth;
@@ -53,10 +50,8 @@ public class StockServiceImpl implements StockServices {
     @Transactional
     public ResponseEntity<?> addStock(AddStockRequestDto dto,String token) {
 
-        System.out.println("dto=="+dto);
         ItemMaster itemMaster=new ItemMaster();
-        Optional<Users> user=userRepo.findById(Integer.parseInt(userAuth.getUserId(token).toString()));
-        System.out.println("user=="+user);
+        Optional<Users> user=userRepo.findById(Integer.parseInt(userAuth.getUserId(token).toString().replace("Bearer ","")));
         Optional<ItemMaster> itemOptional = Optional.ofNullable(itemMasterRepo.findByItemName(dto.getItemName()));
         if (itemOptional.isPresent()){
             itemMaster.setId(itemOptional.get().getId());
@@ -77,7 +72,6 @@ public class StockServiceImpl implements StockServices {
             itemMaster.setCreateDateTime(LocalDateTime.now());
             itemMaster.setUpdatedBy(user.get());
             itemMaster.setLastUpdatedDateTime(LocalDateTime.now());
-
             ItemCategory itemCategory = Optional.ofNullable(itemCategoryRepo.findByCategory(dto.getItemCategoryName()))
                     .orElseGet(() -> {
                         ItemCategory newItemCategory = new ItemCategory();
@@ -89,9 +83,9 @@ public class StockServiceImpl implements StockServices {
                         return itemCategoryRepo.save(newItemCategory);
                     });
             itemMaster.setItemCategory(itemCategory);
-            StockCompany stockCompany = Optional.ofNullable(stockCompanyRepo.findByCompanyName(dto.getStockCompanyName()))
+            ItemCompany stockCompany = Optional.ofNullable(stockCompanyRepo.findByCompanyName(dto.getStockCompanyName()))
                     .orElseGet(() -> {
-                        StockCompany newStockCompany= new StockCompany();
+                        ItemCompany newStockCompany= new ItemCompany();
                         newStockCompany.setCompanyName(dto.getStockCompanyName());
                         newStockCompany.setCreateDateTime(LocalDateTime.now());
                         newStockCompany.setCreateBy(user.get());
@@ -102,7 +96,6 @@ public class StockServiceImpl implements StockServices {
             itemMaster.setStockCompany(stockCompany);
         }
         itemMaster.setItemName(dto.getItemName());
-        itemMaster.setDate(LocalDateTime.now());
         ItemMaster savedItem = itemMasterRepo.save(itemMaster);
         ItemStock itemStock=new ItemStock();
         Optional<ItemStock> itemStockOptional=Optional.ofNullable(itemStockRepo.findByItemMasterAndItemBatch(savedItem, dto.getItemBatch()));
@@ -127,7 +120,9 @@ public class StockServiceImpl implements StockServices {
             itemStock.setUpdatedBy(user.get());
             itemStock.setLastUpdatedDateTime(LocalDateTime.now());
             itemStock.setItemQuantity(dto.getQuantity());
-            itemStock.setLandedRate(((dto.getPurchasePrice()*dto.getGstPercentage())-dto.getDiscount())+itemStock.getPurchasePrice());
+            System.out.println("dto.getPurchasePrice()=="+dto.getPurchasePrice());
+            itemStock.setLandedRate((dto.getPurchasePrice()*dto.getGstPercentage()/100)-dto.getDiscount()+dto.getPurchasePrice());
+            System.out.println("itemStock.getLandedRate()--"+itemStock.getLandedRate());
             itemStock.setGstPercentage(dto.getGstPercentage());
 
         }
@@ -162,7 +157,7 @@ public class StockServiceImpl implements StockServices {
 
 
     @Override
-    public ResponseEntity<?> getItemStock(String searchString) {
+    public ResponseEntity<?> getItemStockSearch(String searchString) {
         var response=new Response<>();
         response.setResult(itemMasterRepo.getItemStockSearch(searchString));
         response.setStatus(HttpStatus.OK.value());

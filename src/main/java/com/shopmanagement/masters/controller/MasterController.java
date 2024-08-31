@@ -56,7 +56,7 @@ public class MasterController {
 
 
     @PostMapping("/createItemCompany")
-    public ResponseEntity<?> createItemCompany(@RequestBody StockCompany stockCompany,
+    public ResponseEntity<?> createItemCompany(@RequestBody ItemCompany stockCompany,
                                                 @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         return masterService.createItemCompany(stockCompany,token);
     }

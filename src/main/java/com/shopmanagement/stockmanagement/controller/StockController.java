@@ -35,9 +35,9 @@ public class StockController {
         return stockServices.getAllItemStockList(dto);
     }
 
-    @GetMapping("/getItemStock/{searchString:.+}")
-    public ResponseEntity<?> getItemStock(@PathVariable String searchString){
-        return stockServices.getItemStock(searchString);
+    @GetMapping("/getItemStockSearch/{searchString:.+}")
+    public ResponseEntity<?> getItemStockSearch(@PathVariable String searchString){
+        return stockServices.getItemStockSearch(searchString);
     }
 
     @GetMapping("/getBatchesFromItemId/{itemId}")

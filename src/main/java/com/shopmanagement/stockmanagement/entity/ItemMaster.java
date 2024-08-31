@@ -2,12 +2,9 @@ package com.shopmanagement.stockmanagement.entity;
 
 import com.shopmanagement.common.BaseEntity;
 import com.shopmanagement.masters.entity.ItemCategory;
-import com.shopmanagement.masters.entity.StockCompany;
+import com.shopmanagement.masters.entity.ItemCompany;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,14 +19,11 @@ public class ItemMaster extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(unique = true,nullable = false)
     private String itemName;
 
     @Column(nullable = false,unique = true)
     private String itemCode;
-
-    @NotNull
-    private LocalDateTime date;
 
     @NonNull
     private Long availableQuantity;
@@ -39,7 +33,7 @@ public class ItemMaster extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "stock_company_id")
-    private StockCompany stockCompany;
+    private ItemCompany stockCompany;
 
     @ManyToOne
     @JoinColumn(name = "item_category_id")
