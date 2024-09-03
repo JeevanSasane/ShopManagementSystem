@@ -1,8 +1,13 @@
 package com.shopmanagement.user.entity;
 
+import com.shopmanagement.common.BaseEntity;
 import com.shopmanagement.masters.entity.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +21,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +38,10 @@ public class Users {
 
     private Integer age;
 
-    private Boolean isActive=true;
-
     @NonNull
     private String mobileNo;
+
+    private String alternateMobileNo;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
@@ -61,8 +66,6 @@ public class Users {
     private String landmark;
 
     private String profile_path;
-
-    private LocalDateTime userCreateDateTime;
 
     @NonNull
     private String loginName;

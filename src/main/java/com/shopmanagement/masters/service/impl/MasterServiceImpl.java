@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class MasterServiceImpl implements MasterService {
+public class MasterServiceImpl implements MasterService{
 
 
     @Autowired
@@ -54,6 +54,15 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public ResponseEntity<?> getCountry() {
+        var response=new Response<>();
+        response.setResult(countryRepo.getCountry());
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Country Retrieved Successfully..");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
     public List<State> getAllStatesByCountry(Integer countryId) {
         Country country = new Country();
         country.setId(countryId);
@@ -65,6 +74,24 @@ public class MasterServiceImpl implements MasterService {
         State state = new State();
         state.setId(stateId);
         return cityRepo.findByState(state);
+    }
+
+    @Override
+    public ResponseEntity<?> getState(Long countryId) {
+        var response=new Response<>();
+        response.setResult(stateRepo.getStateByCountry(countryId));
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("States Retrieved Successfully..");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<?> getCity(Long stateId) {
+        var response=new Response<>();
+        response.setResult(cityRepo.getCityByState(stateId));
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("City Retrieved Successfully..");
+        return ResponseEntity.ok(response);
     }
 
     @Override
@@ -152,6 +179,15 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public ResponseEntity<?> getPrefix() {
+        var response=new Response<>();
+        response.setResult(prefixRepo.getPrefix());
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Prefix Retrieved Successfully..");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
     public ResponseEntity<?> createGender(Gender gender, String token) {
         var response=new Response<>();
         gender.setCreateDateTime(LocalDateTime.now());
@@ -159,6 +195,15 @@ public class MasterServiceImpl implements MasterService {
         gender.setIsActive(true);
         gender.setIsDelete(false);
         genderRepo.save(gender);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("Gender Retrieved Successfully..");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<?> getGender() {
+        var response=new Response<>();
+        response.setResult(genderRepo.getGender());
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("Gender Retrieved Successfully..");
         return ResponseEntity.ok(response);

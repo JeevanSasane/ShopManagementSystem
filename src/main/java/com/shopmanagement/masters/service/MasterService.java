@@ -11,9 +11,15 @@ public interface MasterService {
 
     List<Country> getAllCountry();
 
+    ResponseEntity<?> getCountry();
+
     List<State> getAllStatesByCountry(Integer countryId);
 
     List<City>getCityByState(Integer stateId);
+
+    ResponseEntity<?> getState(Long countryId);
+
+    ResponseEntity<?> getCity(Long stateId);
 
 
     ResponseEntity<?> createBranch(Branch branch,String token);
@@ -33,6 +39,10 @@ public interface MasterService {
 
     ResponseEntity<?> createPrefix(Prefix prefix,String token);
 
+    ResponseEntity<?> getPrefix();
+
     ResponseEntity<?> createGender(Gender gender,String token);
+
+    ResponseEntity<?> getGender();
 
 }

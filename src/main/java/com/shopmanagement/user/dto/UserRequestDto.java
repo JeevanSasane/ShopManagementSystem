@@ -35,6 +35,8 @@ public class UserRequestDto {
     @NonNull
     private String mobileNo;
 
+    private String alternateMobileNo;
+
     private String countryName;
 
     private String stateName;

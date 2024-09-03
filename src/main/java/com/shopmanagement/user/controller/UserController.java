@@ -1,6 +1,7 @@
 package com.shopmanagement.user.controller;
 
 import com.shopmanagement.user.dto.LoginRequestDto;
+import com.shopmanagement.user.dto.UserListRequestDto;
 import com.shopmanagement.user.dto.UserRequestDto;
 import com.shopmanagement.user.entity.Users;
 import com.shopmanagement.user.service.UserServices;
@@ -21,14 +22,14 @@ public class UserController {
     private UserServices userServices;
 
     @PostMapping("/createUser")
-    public Users createUser(@RequestBody UserRequestDto users, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+    public ResponseEntity<?> createUser(@RequestBody UserRequestDto users, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         System.out.println("in createUser controller");
         return userServices.createUser(users,token);
     }
 
-    @GetMapping("/getUsers")
-    public List<Users> getUsers(){
-        return userServices.getUsers();
+    @GetMapping("/getUsersList")
+    public ResponseEntity<?> getUsers(@RequestBody UserListRequestDto dto){
+        return userServices.getUsers(dto);
     }
 
     @GetMapping("/getUser/{userId}")
@@ -45,5 +46,10 @@ public class UserController {
     @GetMapping("/getUserBranch/{loginName}")
     public ResponseEntity<?> getUserBranch(@PathVariable String loginName){
         return userServices.getUserBranch(loginName);
+    }
+
+    @GetMapping("/checkLoginNameExists/{loginName}")
+    public ResponseEntity<?> checkLoginNameExists(@PathVariable String loginName){
+        return userServices.checkLoginNameExists(loginName);
     }
 }

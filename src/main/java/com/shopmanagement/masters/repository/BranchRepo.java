@@ -9,6 +9,6 @@ import java.util.Map;
 
 public interface BranchRepo extends JpaRepository<Branch,Long> {
 
-    @Query(value = "select * from RetrieveBranch()",nativeQuery = true)
+    @Query(value = "select * from retrievebranches()",nativeQuery = true)
     List<Map<String,Object>> getBranch();
 }

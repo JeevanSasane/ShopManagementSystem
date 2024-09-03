@@ -21,15 +21,32 @@ public class MasterController {
         return masterService.getAllCountry();
     }
 
+    @GetMapping("/getCountry")
+    public ResponseEntity<?>  getCountry(){
+        return masterService.getCountry();
+    }
+
     @GetMapping("/getAllStates/{countryId}")
     public List<State> getAllStates(@PathVariable Integer countryId){
         return masterService.getAllStatesByCountry(countryId);
     }
 
+    @GetMapping("/getState/{countryId}")
+    public ResponseEntity<?>  getState(@PathVariable Long countryId){
+        return masterService.getState(countryId);
+    }
+
+    @GetMapping("/getCity/{stateId}")
+    public ResponseEntity<?>  getCity(@PathVariable Long stateId){
+        return masterService.getCity(stateId);
+    }
+
+
     @GetMapping("/getAllCity/{cityId}")
     public List<City> getAllCity(@PathVariable Integer cityId){
         return masterService.getCityByState(cityId);
     }
+
 
     @PostMapping("/createBranch")
     public ResponseEntity<?> createBranch(@RequestBody Branch branch,
@@ -72,9 +89,20 @@ public class MasterController {
         return masterService.createPrefix(prefix,token);
     }
 
+    @GetMapping("/getPrefix")
+    public ResponseEntity<?>  getPrefix(){
+        return masterService.getPrefix();
+    }
+
     @PostMapping("/createGender")
     public ResponseEntity<?> createGender(@RequestBody Gender gender,
                                                @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         return masterService.createGender(gender,token);
     }
+
+    @GetMapping("/getGender")
+    public ResponseEntity<?>  getGender(){
+        return masterService.getGender();
+    }
+
 }
