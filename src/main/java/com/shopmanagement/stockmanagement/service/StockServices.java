@@ -19,4 +19,8 @@ public interface StockServices {
 
     ResponseEntity<?> getBatchesFromItemId(Long itemId);
 
+    ResponseEntity<?> addItemIntoNextPurchaseList(Long itemId);
+
+
+
 }

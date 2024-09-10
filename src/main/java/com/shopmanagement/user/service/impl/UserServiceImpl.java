@@ -10,9 +10,9 @@ import com.shopmanagement.security.JwtProvider;
 import com.shopmanagement.security.UserAuth;
 import com.shopmanagement.storage.Constants;
 import com.shopmanagement.storage.StorageServices;
-import com.shopmanagement.user.dto.LoginResponseDto;
-import com.shopmanagement.user.dto.UserListRequestDto;
-import com.shopmanagement.user.dto.UserRequestDto;
+import com.shopmanagement.user.controller.UserController;
+import com.shopmanagement.user.dto.response.LoginResponseDto;
+import com.shopmanagement.user.dto.request.UserRequestDto;
 import com.shopmanagement.user.entity.UserBranchMapping;
 import com.shopmanagement.user.entity.UserBranchMappingId;
 import com.shopmanagement.user.entity.Users;
@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -154,9 +153,10 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
-    public ResponseEntity<?> getUsers(UserListRequestDto dto) {
+    public ResponseEntity<?> getUsers(UserController.UserListRequestDto dto) {
         var response=new Response<>();
         response.setResult(userRepo.getUserList(dto.getUserId(),dto.getPage(),dto.getSize()));
+        response.setCount(userRepo.getUserListCount(dto.getUserId()));
         response.setStatus(HttpStatus.OK.value());
         response.setMessage("User List Retrieved Successfully..");
         return ResponseEntity.ok(response);
@@ -164,8 +164,11 @@ public class UserServiceImpl implements UserServices {
 
     @Override
     public ResponseEntity<?> getUserListSearch(String searchString) {
-
-        return null;
+        var response=new Response<>();
+        response.setResult(userRepo.getUserListSearch(searchString));
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage("User List Retrieved Successfully..");
+        return ResponseEntity.ok(response);
     }
 
 

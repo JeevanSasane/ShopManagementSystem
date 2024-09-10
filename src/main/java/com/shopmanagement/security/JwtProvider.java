@@ -1,6 +1,6 @@
 package com.shopmanagement.security;
 
-import com.shopmanagement.user.dto.LoginResponseDto;
+import com.shopmanagement.user.dto.response.LoginResponseDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;

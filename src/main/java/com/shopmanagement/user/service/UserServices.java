@@ -1,18 +1,17 @@
 package com.shopmanagement.user.service;
 
-import com.shopmanagement.user.dto.UserListRequestDto;
-import com.shopmanagement.user.dto.UserRequestDto;
+import com.shopmanagement.user.controller.UserController;
+import com.shopmanagement.user.dto.request.UserRequestDto;
 import com.shopmanagement.user.entity.Users;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserServices {
 
     ResponseEntity<?> createUser(UserRequestDto users,String token);
 
-    ResponseEntity<?> getUsers(UserListRequestDto dto);
+    ResponseEntity<?> getUsers(UserController.UserListRequestDto dto);
 
     ResponseEntity<?> getUserListSearch(String searchString);
 

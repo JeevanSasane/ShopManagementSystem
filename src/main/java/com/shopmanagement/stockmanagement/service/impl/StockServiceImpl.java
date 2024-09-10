@@ -173,4 +173,10 @@ public class StockServiceImpl implements StockServices {
         response.setMessage("Item Batched Retrieved Successfully.");
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public ResponseEntity<?> addItemIntoNextPurchaseList(Long itemId) {
+
+        return null;
+    }
 }

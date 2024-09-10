@@ -1,4 +1,4 @@
-package com.shopmanagement.user.dto;
+package com.shopmanagement.user.dto.response;
 
 import lombok.*;
 

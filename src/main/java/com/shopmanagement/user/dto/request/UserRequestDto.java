@@ -1,9 +1,6 @@
-package com.shopmanagement.user.dto;
+package com.shopmanagement.user.dto.request;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.*;
 
 import java.time.LocalDate;
